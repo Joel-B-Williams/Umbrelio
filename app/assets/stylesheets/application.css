@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+#map {
+	height: 30vh;
+	width: 80vw;
+	margin: auto;
+}

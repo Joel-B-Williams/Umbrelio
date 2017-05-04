@@ -16,5 +16,14 @@
 //= require_tree .
 
 $(document).ready(function(){
-	
+	initMap();
 });
+
+// create map and tell it where to live
+initMap = function(){
+	var map = new google.maps.Map(document.getElementById('map'), {
+		// hardcode Chicago for now
+		center: {lat:41.875586, lng:-87.627105},
+		zoom: 8
+	})
+};

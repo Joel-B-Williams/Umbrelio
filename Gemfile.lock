@@ -55,6 +55,8 @@ GEM
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    figaro (1.1.1)
+      thor (~> 0.14)
     forecast_io (2.0.1)
       faraday
       hashie
@@ -164,6 +166,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
+  figaro
   forecast_io
   jbuilder (~> 2.5)
   jquery-rails
