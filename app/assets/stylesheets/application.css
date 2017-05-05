@@ -15,7 +15,23 @@
  */
 
 #map {
-	height: 30vh;
+	height: 40vh;
 	width: 80vw;
 	margin: auto;
+}
+
+#forecast {
+	/*height: 5vh;*/
+	width: 10vw;
+	margin: auto;
+	margin-top: 5vh;
+}
+
+.button {
+	border: solid black 1px;
+	text-decoration: none;
+	color: black;
+	background: grey;
+	padding: 5px 10px 5px 10px;
+	border-radius: 25px;
 }
