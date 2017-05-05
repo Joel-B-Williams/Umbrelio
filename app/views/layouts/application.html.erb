@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Umbrelio</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  
-    <script src='https://maps.googleapis.com/maps/api/js?key=<%ENV["GOOGLE_MAPS"]%>'></script>
-  </head>
-
+  <%= render 'layouts/head' %>
   <body>
+    <%= render 'shared/map' %>
     <%= yield %>
-    <footer>
-    	<%= link_to 'Powered by Dark Sky', 'https://darksky.net/poweredby/' %>
-    </footer>
+  <%= render 'layouts/footer' %>
   </body>
 </html>
