@@ -114,6 +114,7 @@ var getForecast = function(map){
 		.done(function(response){
 			console.log('poop')
 			console.log(response)
+			console.log('poop')
 		});
 	
 	});
