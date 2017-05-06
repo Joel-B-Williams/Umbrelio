@@ -35,3 +35,34 @@
 	padding: 5px 10px 5px 10px;
 	border-radius: 25px;
 }
+
+.weather_table {
+	width: 80vw;
+	margin: auto;
+	text-align: center;
+	font-family: jura;
+}
+
+.details {
+	font-size: 3em;
+}
+
+.summary {
+	font-size: 2em;
+	font-style: italic;
+}
+
+th {
+	background-color: #1a778c;
+	width: 33%;
+}
+
+th:first-child {
+	border-top-left-radius: 10px;
+}
+
+th:last-child {
+	border-top-right-radius: 10px;
+}
+
+

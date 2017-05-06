@@ -112,11 +112,13 @@ var getForecast = function(map){
 			data: data
 		})
 		.done(function(response){
-			console.log('poop')
-			console.log(response)
-			console.log('poop')
+			// console.log(response)
+			console.log(response.currently)		
+			$('.temperature').html(response.currently.temperature)
+			$('.humidity').html(response.currently.humidity)
+			$('.feels_like').html(response.currently.apparentTemperature)
+			$('.summary').html(response.currently.summary)
 		});
-	
 	});
 };
 
