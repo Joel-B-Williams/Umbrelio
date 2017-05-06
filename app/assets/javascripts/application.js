@@ -112,6 +112,7 @@ var getForecast = function(map){
 			data: data
 		})
 		.done(function(response){
+			console.log('poop')
 			console.log(response)
 		});
 	
