@@ -17,28 +17,55 @@
 
 $(document).ready(function(){
 	initMap();
-	getForecast();
 });
 
 // create map with searchbox
 var initMap = function(){
+	// createMap(); 
 	var map = new google.maps.Map(document.getElementById('map'), {
-		// hardcode Chicago for now
+		// hardcode Chicago for now as default
 		center: {lat:41.875586, lng:-87.627105},
 		zoom: 4
 	});
+	
+	addSearchBox(map);
 	// createSearchBox(map);
+	// var pageDiv = document.getElementById('searchbox');
+	// var searchBox = new google.maps.places.Autocomplete(pageDiv, {types: ['(cities)']});
+	// map.controls[google.maps.ControlPosition.TOP].push(pageDiv);
+
+  // map.addListener('bounds_changed', function() {
+  //   searchBox.setBounds(map.getBounds());
+  // });
+
+  getLocation(map);
+	getForecast(map);
+};
+
+// create base map
+// var createMap = function(){
+// 	var map = new google.maps.Map(document.getElementById('map'), {
+// 		// hardcode Chicago for now as default
+// 		center: {lat:41.875586, lng:-87.627105},
+// 		zoom: 4
+// 	});
+// };
+
+// add searchBox to map
+var addSearchBox = function(map){
 	var pageDiv = document.getElementById('searchbox');
 	var searchBox = new google.maps.places.Autocomplete(pageDiv, {types: ['(cities)']});
 	map.controls[google.maps.ControlPosition.TOP].push(pageDiv);
+	chooseLocation(map, searchBox);
+	biasOnView(map, searchBox);
+};
 
- // Bias the SearchBox results towards current map's viewport.
+
+// Bias the SearchBox results towards current map's viewport.
+var biasOnView = function(map, searchBox){
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
   });
-
-  getLocation(map);
-	chooseLocation(map, searchBox);
 };
 
 // find current position
@@ -59,41 +86,47 @@ var getLocation = function(map){
 var chooseLocation = function(map, searchBox){
 	searchBox.addListener('place_changed', function(){
 		var place = searchBox.getPlace();
-	 console.log('poop')
-	 console.log(place)
 		map.setCenter(place.geometry.location);
 		
 	});
 };
-// var createSearchBox = function(mapToJoin){
-// 	var boxPlacement = document.getElementById('searchbox');
-// 	var searchBox = new google.maps.places.SearchBox(boxPlacement);
-// 	mapToJoin.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-// 	// Bias the SearchBox results towards current map's viewport.
-//   mapToJoin.addListener('bounds_changed', function() {
-//     searchBox.setBounds(mapToJoin.getBounds());
-// 	});
-// };
 
-// hardcode Chicago for now
-var getForecast = function(){
-	$('.forecast-button').on('click', function(e){
+// get forecast for area at center of map
+var getForecast = function(map){
+	$('#forecast form').on('submit', function(e){
 		e.preventDefault();
 		var $this = $(this);
 
-		var baseUrl = $this.attr('href');
-		// var key = FIND IN ENV FILE;
-		var coords = '41.875586,-87.627105';
-		var url = baseUrl+key+'/'+coords
-		
-		$.ajax({
-			url
-		})
-		.done(function(response){
-			console.log(response)
-		});
+		var url = $this.attr('action');
+		var method = $this.attr('method');
+		var lat = getLat(map);
+		var lng = getLng(map);
+		var data = {
+			lat: lat,
+			lng: lng
+		};
 
+		$.ajax({
+			url: url,
+			method: method,
+			data: data
+		})
+		// .done(function(response){
+		// 	console.log(response)
+		// });
+	
 	});
+};
+
+// get coordinates from center of map
+var getLat = function(map){
+	var centerCoords = map.getCenter();
+	return centerCoords.lat();
+};
+
+var getLng = function(map){
+	var centerCoords = map.getCenter();
+	return centerCoords.lng();
 };
 
 

@@ -1,14 +1,13 @@
 <div>
-<!-- 	<div>
-		<%= form_tag('/forecast') do %>
-			<%= text_field_tag "location" %>
-			<%= submit_tag "Get Forecast" %>
-		<% end %>
-	</div>
- -->  <div id='map'></div>
+  <div id='map'></div>
 	<input id="searchbox" type="text" placeholder="Enter Location">
 
 	<div id='forecast'>
+		<%= form_tag('/forecast') do %>
+			<%= submit_tag "Get Forecast", class: 'forecast-button button' %>
+		<% end %>
+	</div>
+<!-- 	<div id='forecast'>
     <%= link_to 'Forecast', 'static#forecast', class: 'forecast-button button' %>
-  </div> 
+  </div>  -->
 </div>

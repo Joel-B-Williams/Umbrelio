@@ -9,8 +9,11 @@ class StaticController < ApplicationController
 		require 'net/http'
 		require 'uri'
 
-
-		redirect_to 'static#home'
+		if request.xhr?
+			p "*"*50
+			p params
+			# redirect_to 'static#home'
+		end
 	end
 
 end
