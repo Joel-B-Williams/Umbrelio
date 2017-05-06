@@ -10,9 +10,12 @@ class StaticController < ApplicationController
 		require 'uri'
 
 		if request.xhr?
-			p "*"*50
-			p params
-			# redirect_to 'static#home'
+			base_url = "https://api.darksky.net/forecast"
+			key = ENV["DARK_SKY"]
+			latitude = params[:lat]
+			longitude = params[:lng]
+			uri = URI.parse("#{base_url}/#{key}/#{latitude},#{longitude}")
+			Net::HTTP.get_print(uri)
 		end
 	end
 

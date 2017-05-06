@@ -111,9 +111,9 @@ var getForecast = function(map){
 			method: method,
 			data: data
 		})
-		// .done(function(response){
-		// 	console.log(response)
-		// });
+		.done(function(response){
+			console.log(response)
+		});
 	
 	});
 };
