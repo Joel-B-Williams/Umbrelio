@@ -19,11 +19,147 @@ $(document).ready(function(){
 	initMap();
 });
 
-// create map and tell it where to live
-initMap = function(){
+// create map with searchbox
+var initMap = function(){
+	// createMap(); 
 	var map = new google.maps.Map(document.getElementById('map'), {
-		// hardcode Chicago for now
+		// hardcode Chicago for now as default
 		center: {lat:41.875586, lng:-87.627105},
-		zoom: 8
-	})
+		zoom: 4
+	});
+	
+	addSearchBox(map);
+	// createSearchBox(map);
+	// var pageDiv = document.getElementById('searchbox');
+	// var searchBox = new google.maps.places.Autocomplete(pageDiv, {types: ['(cities)']});
+	// map.controls[google.maps.ControlPosition.TOP].push(pageDiv);
+
+  // map.addListener('bounds_changed', function() {
+  //   searchBox.setBounds(map.getBounds());
+  // });
+
+  getLocation(map);
+	getForecast(map);
 };
+
+// create base map
+// var createMap = function(){
+// 	var map = new google.maps.Map(document.getElementById('map'), {
+// 		// hardcode Chicago for now as default
+// 		center: {lat:41.875586, lng:-87.627105},
+// 		zoom: 4
+// 	});
+// };
+
+// add searchBox to map
+var addSearchBox = function(map){
+	var pageDiv = document.getElementById('searchbox');
+	var searchBox = new google.maps.places.Autocomplete(pageDiv, {types: ['(cities)']});
+	map.controls[google.maps.ControlPosition.TOP].push(pageDiv);
+	chooseLocation(map, searchBox);
+	biasOnView(map, searchBox);
+};
+
+
+// Bias the SearchBox results towards current map's viewport.
+var biasOnView = function(map, searchBox){
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
+};
+
+// find current position
+var getLocation = function(map){
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position){
+			var pos = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude
+			};
+		map.setCenter(pos);
+		map.setZoom(8);
+		});
+	};
+};
+
+// Select new position
+var chooseLocation = function(map, searchBox){
+	searchBox.addListener('place_changed', function(){
+		var place = searchBox.getPlace();
+		map.setCenter(place.geometry.location);
+		
+	});
+};
+
+// get forecast for area at center of map
+var getForecast = function(map){
+	$('#forecast form').on('submit', function(e){
+		e.preventDefault();
+		var $this = $(this);
+
+		var url = $this.attr('action');
+		var method = $this.attr('method');
+		var lat = getLat(map);
+		var lng = getLng(map);
+		var data = {
+			lat: lat,
+			lng: lng
+		};
+		
+		enlargeTable();
+
+		$.ajax({
+			url: url,
+			method: method,
+			data: data
+		})
+		.done(function(response){
+			// console.log(response)
+			// console.log(response.currently)		
+			$('.temperature').html(response.currently.temperature)
+			$('.humidity').html(response.currently.humidity)
+			$('.feels_like').html(response.currently.apparentTemperature)
+			$('.summary').html(response.currently.summary)
+		});
+	});
+};
+
+// get coordinates from center of map
+var getLat = function(map){
+	var centerCoords = map.getCenter();
+	return centerCoords.lat();
+};
+
+var getLng = function(map){
+	var centerCoords = map.getCenter();
+	return centerCoords.lng();
+};
+
+var enlargeTable = function(){
+	$('.details').animate(
+	{ height: '25vh'}, 
+	{ duration: 600 }
+	);
+};
+
+var fadeIn = function(){
+	$('td').fadeIn("slow", function(){});
+};
+
+
+
+
+
+
+
+// Dark Sky API
+// import DarkSkyApi from 'dark-sky-api';
+// var DarkSkySpi = require("DarkSkyApi");
+// DarkSkyApi.apiKey = ENV["DARK_SKY"];
+// DarkSkyApi.initialize();
+
+// current weather
+// var getCurrent = function(){
+// 	DarkSkyApi.loadCurrent()
+// 		.then(result => console.log(result));
+// };

@@ -25,6 +25,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'forecast_io'
 # gem for handling Env files
 gem 'figaro'
+gem 'httparty'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

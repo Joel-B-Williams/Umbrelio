@@ -14,8 +14,67 @@
  *= require_self
  */
 
+footer {
+	text-align: center;
+	margin-top: 5vh;
+}
+
+footer a {
+	text-decoration: none;
+	color: black;
+	font-family: jura;
+	font-style: italic;
+}
+
 #map {
-	height: 30vh;
+	height: 40vh;
 	width: 80vw;
 	margin: auto;
 }
+
+#forecast {
+	/*height: 5vh;*/
+	width: 10vw;
+	margin: auto;
+	margin-top: 5vh;
+}
+
+.button {
+	border: solid black 1px;
+	text-decoration: none;
+	color: black;
+	background: grey;
+	padding: 5px 10px 5px 10px;
+	border-radius: 25px;
+}
+
+.weather_table {
+	width: 80vw;
+	margin: auto;
+	text-align: center;
+	font-family: jura;
+}
+
+.details {
+	font-size: 3em;
+}
+
+.summary {
+	font-size: 2em;
+	font-style: italic;
+}
+
+th {
+	background-color: #1a778c;
+	width: 33%;
+}
+
+th:first-child {
+	border-top-left-radius: 10px;
+}
+
+th:last-child {
+	border-top-right-radius: 10px;
+}
+
+
