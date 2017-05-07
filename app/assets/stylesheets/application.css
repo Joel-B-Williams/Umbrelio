@@ -14,6 +14,18 @@
  *= require_self
  */
 
+footer {
+	text-align: center;
+	margin-top: 5vh;
+}
+
+footer a {
+	text-decoration: none;
+	color: black;
+	font-family: jura;
+	font-style: italic;
+}
+
 #map {
 	height: 40vh;
 	width: 80vw;

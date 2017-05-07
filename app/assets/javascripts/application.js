@@ -105,6 +105,8 @@ var getForecast = function(map){
 			lat: lat,
 			lng: lng
 		};
+		
+		enlargeTable();
 
 		$.ajax({
 			url: url,
@@ -113,7 +115,7 @@ var getForecast = function(map){
 		})
 		.done(function(response){
 			// console.log(response)
-			console.log(response.currently)		
+			// console.log(response.currently)		
 			$('.temperature').html(response.currently.temperature)
 			$('.humidity').html(response.currently.humidity)
 			$('.feels_like').html(response.currently.apparentTemperature)
@@ -131,6 +133,17 @@ var getLat = function(map){
 var getLng = function(map){
 	var centerCoords = map.getCenter();
 	return centerCoords.lng();
+};
+
+var enlargeTable = function(){
+	$('.details').animate(
+	{ height: '25vh'}, 
+	{ duration: 600 }
+	);
+};
+
+var fadeIn = function(){
+	$('td').fadeIn("slow", function(){});
 };
 
 
