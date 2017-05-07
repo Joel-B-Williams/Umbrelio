@@ -13,6 +13,9 @@
  *= require_tree .
  *= require_self
  */
+body {
+	font-family: jura;
+}
 
 footer {
 	text-align: center;
@@ -22,7 +25,7 @@ footer {
 footer a {
 	text-decoration: none;
 	color: black;
-	font-family: jura;
+	/*font-family: jura;*/
 	font-style: italic;
 }
 
@@ -52,7 +55,8 @@ footer a {
 	width: 80vw;
 	margin: auto;
 	text-align: center;
-	font-family: jura;
+	border-bottom: solid #1a778c 1px;
+	/*font-family: jura;*/
 }
 
 .details {
@@ -76,5 +80,36 @@ th:first-child {
 th:last-child {
 	border-top-right-radius: 10px;
 }
+
+.weekly_weather {
+	margin-top: 3vh;
+	margin-bottom: 3vh;
+}
+
+.daily_weather {
+	display: inline-block;
+	width: 10vw;
+	vertical-align: top;
+	margin-left: 1.75vw;
+}
+
+.daily_summary {
+	font-style: italic;
+	font-size: .8em;
+}
+
+.glance {
+	text-align: center;
+	font-style: italic;
+	font-size: 1.2em;
+	margin-bottom: 1vh;
+}
+/*.daily_lo {
+	float: left;
+}
+
+.daily_hi {
+	float: right;
+}*/
 
 
