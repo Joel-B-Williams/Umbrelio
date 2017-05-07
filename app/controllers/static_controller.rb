@@ -12,6 +12,8 @@ class StaticController < ApplicationController
 		longitude = params[:lng]
 		
 		response = HTTParty.get("#{base_url}/#{key}/#{latitude},#{longitude}")
+		p "*"*50
+		p response
 		respond_to do |format|
 			format.json { render json: response }
 			# format.html { 

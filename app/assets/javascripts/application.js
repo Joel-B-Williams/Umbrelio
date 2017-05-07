@@ -107,6 +107,7 @@ var getForecast = function(map){
 		};
 		
 		enlargeTable();
+		enlargeWeekly();
 
 		$.ajax({
 			url: url,
@@ -116,13 +117,22 @@ var getForecast = function(map){
 		.done(function(response){
 			// console.log(response)
 			// console.log(response.currently)		
-			$('.temperature').html(response.currently.temperature)
-			$('.humidity').html(response.currently.humidity)
-			$('.feels_like').html(response.currently.apparentTemperature)
-			$('.summary').html(response.currently.summary)
+			$('.temperature').html(response.currently.temperature);
+			$('.humidity').html(response.currently.humidity);
+			$('.feels_like').html(response.currently.apparentTemperature);
+			$('.summary').html(response.currently.summary);
+			$('.weekly_weather').append("<section class='glance'>Upcoming Weather</section>")
+			for (var i=0; i<response.daily.data.length; i++){
+				$('.weekly_weather').append("<section class='daily_weather'></section>")
+				$('.daily_weather').eq(i).append("<section class='daily_hi'> Hi: "+response.daily.data[i].temperatureMax+"</section>");
+				$('.daily_weather').eq(i).append("<section class='daily_lo'> Lo: "+response.daily.data[i].temperatureMin+"</section>");
+				$('.daily_weather').eq(i).append("<section class='daily_summary'>"+response.daily.data[i].summary+"</section>");
+			};
 		});
 	});
 };
+
+
 
 // get coordinates from center of map
 var getLat = function(map){
@@ -135,16 +145,26 @@ var getLng = function(map){
 	return centerCoords.lng();
 };
 
+
+// styling
+
 var enlargeTable = function(){
 	$('.details').animate(
-	{ height: '25vh'}, 
-	{ duration: 600 }
+	{ height: '30vh'}, 
+	{ duration: 500 }
 	);
 };
 
-var fadeIn = function(){
-	$('td').fadeIn("slow", function(){});
-};
+var enlargeWeekly = function(){
+	$('.weekly_weather').animate(
+	{ height: '20vh' },
+	{ duration: 500 }
+	);
+}
+
+// var fadeIn = function(){
+// 	$('td').fadeIn("slow", function(){});
+// };
 
 
 
