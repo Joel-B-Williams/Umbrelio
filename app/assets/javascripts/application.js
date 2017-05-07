@@ -150,7 +150,7 @@ var getLng = function(map){
 
 var enlargeTable = function(){
 	$('.details').animate(
-	{ height: '30vh'}, 
+	{ height: '20vh'}, 
 	{ duration: 500 }
 	);
 };

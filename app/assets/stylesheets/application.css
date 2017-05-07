@@ -71,6 +71,7 @@ footer a {
 th {
 	background-color: #1a778c;
 	width: 33%;
+	font-size: 1.5em;
 }
 
 th:first-child {
@@ -83,7 +84,7 @@ th:last-child {
 
 .weekly_weather {
 	margin-top: 3vh;
-	margin-bottom: 3vh;
+	margin-bottom: 5vh;
 }
 
 .daily_weather {
