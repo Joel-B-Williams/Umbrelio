@@ -19,9 +19,11 @@ class StaticController < ApplicationController
 		response["past"] = past
 		p response
 		p"*"*80 
-		
 		p response["past"]["daily"]#.daily.data.temperatureMax
 		# response = current
+		p"*"*80 
+		p format_time(Time.now)
+		p format_time(Time.now - 1.day)
 		respond_to do |format|
 			format.json { render json: response }
 			# format.html { 
