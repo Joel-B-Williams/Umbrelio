@@ -29,18 +29,7 @@ footer a {
 	font-style: italic;
 }
 
-#map {
-	height: 40vh;
-	width: 80vw;
-	margin: auto;
-}
 
-#forecast {
-	/*height: 5vh;*/
-	width: 10vw;
-	margin: auto;
-	margin-top: 5vh;
-}
 
 .button {
 	border: solid black 1px;
@@ -85,6 +74,8 @@ th:last-child {
 .weekly_weather {
 	margin-top: 3vh;
 	margin-bottom: 5vh;
+	padding-bottom: 1vh;
+	border-bottom: solid #1a778c 1px;
 }
 
 .daily_weather {
@@ -105,12 +96,25 @@ th:last-child {
 	font-size: 1.2em;
 	margin-bottom: 1vh;
 }
-/*.daily_lo {
-	float: left;
+
+#past_weather {
+	/*border-bottom: solid #1a778c 1px;*/
+	/*padding-bottom: 1vh;*/
+	width: 80vw;
+	margin: auto;
 }
 
-.daily_hi {
-	float: right;
-}*/
+#map {
+	height: 55vh;
+	width: 80vw;
+	margin: auto;
+	margin-top: 1vh;
+}
 
+#forecast {
+	/*height: 5vh;*/
+	width: 10vw;
+	margin: auto;
+	margin-top: 5vh;
+}
 

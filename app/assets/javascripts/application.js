@@ -107,8 +107,6 @@ var getForecast = function(map){
 			lng: lng
 		};
 		
-		enlargeTable();
-		enlargeWeekly();
 
 		$.ajax({
 			url: url,
@@ -116,6 +114,9 @@ var getForecast = function(map){
 			data: data
 		})
 		.done(function(response){
+			enlargeTable();
+			enlargeWeekly();
+			enlargePast();
 			// console.log(response)
 			// console.log(response.currently)		
 			$('.temperature').html(response.currently.temperature);
@@ -155,20 +156,28 @@ var getLng = function(map){
 var enlargeTable = function(){
 	$('.details').animate(
 	{ height: '20vh'}, 
-	{ duration: 500 }
+	{ duration: 1000 }
 	);
 };
 
 var enlargeWeekly = function(){
 	$('.weekly_weather').animate(
 	{ height: '20vh' },
-	{ duration: 500 }
+	{ duration: 1000 }
 	);
 }
 
+var enlargePast = function(){
+	$('#past_weather').animate(
+	{ height: '35vh' },
+	{ duration: 1000 }
+	);
+}
+
+// draw chart pulled from past data
+
 var drawChart = function(response){
 	var data = google.visualization.arrayToDataTable([
-		// ['Last Week', response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMax],
 		['Last Week', response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMax, response.seven_days_ago.temperatureMax],
 		['', response.six_days_ago.temperatureMin, response.six_days_ago.temperatureMin, response.six_days_ago.temperatureMax, response.six_days_ago.temperatureMax],
 		['', response.five_days_ago.temperatureMin, response.five_days_ago.temperatureMin, response.five_days_ago.temperatureMax, response.five_days_ago.temperatureMax],
@@ -178,7 +187,18 @@ var drawChart = function(response){
 		['Yesterday', response.one_day_ago.temperatureMin, response.one_day_ago.temperatureMin, response.one_day_ago.temperatureMax, response.one_day_ago.temperatureMax]
 		], true);
 
-	var options = { legend: 'none' };
+	var options = { 
+		legend: 'none',
+		colors: ['#1a778c'],
+		fontName: 'jura',
+		title: 'Past week daily hi/lo',
+		titleTextStyle: {
+			fontName: 'jura',
+			italic: true,
+			fontSize: 18
+		}
+		// bar: {groupWidth: '100%' }
+		 };
 
 	var chart = new google.visualization.CandlestickChart(document.getElementById('past_weather'));
 
