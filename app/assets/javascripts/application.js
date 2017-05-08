@@ -17,6 +17,7 @@
 
 $(document).ready(function(){
 	initMap();
+	google.charts.load('current', {'packages':['corechart']});
 });
 
 // create map with searchbox
@@ -128,6 +129,9 @@ var getForecast = function(map){
 				$('.daily_weather').eq(i).append("<section class='daily_lo'> Lo: "+response.daily.data[i].temperatureMin+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_summary'>"+response.daily.data[i].summary+"</section>");
 			};
+
+			drawChart(response);
+
 		});
 	});
 };
@@ -161,6 +165,26 @@ var enlargeWeekly = function(){
 	{ duration: 500 }
 	);
 }
+
+var drawChart = function(response){
+	var data = google.visualization.arrayToDataTable([
+		// ['Last Week', response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMax],
+		['Last Week', response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMax, response.seven_days_ago.temperatureMax],
+		['', response.six_days_ago.temperatureMin, response.six_days_ago.temperatureMin, response.six_days_ago.temperatureMax, response.six_days_ago.temperatureMax],
+		['', response.five_days_ago.temperatureMin, response.five_days_ago.temperatureMin, response.five_days_ago.temperatureMax, response.five_days_ago.temperatureMax],
+		['', response.four_days_ago.temperatureMin, response.four_days_ago.temperatureMin, response.four_days_ago.temperatureMax, response.four_days_ago.temperatureMax],
+		['', response.three_days_ago.temperatureMin, response.three_days_ago.temperatureMin, response.three_days_ago.temperatureMax, response.three_days_ago.temperatureMax],
+		['', response.two_days_ago.temperatureMin, response.two_days_ago.temperatureMin, response.two_days_ago.temperatureMax, response.two_days_ago.temperatureMax],
+		['Yesterday', response.one_day_ago.temperatureMin, response.one_day_ago.temperatureMin, response.one_day_ago.temperatureMax, response.one_day_ago.temperatureMax]
+		], true);
+
+	var options = { legend: 'none' };
+
+	var chart = new google.visualization.CandlestickChart(document.getElementById('past_weather'));
+
+	chart.draw(data, options);
+
+};
 
 // var fadeIn = function(){
 // 	$('td').fadeIn("slow", function(){});
