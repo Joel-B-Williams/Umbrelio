@@ -117,15 +117,18 @@ var getForecast = function(map){
 			enlargeTable();
 			enlargeWeekly();
 			enlargePast();
+			scrollToTop();
+			// $('#forecast').prop('disabled', false);
 			// console.log(response)
 			// console.log(response.currently)		
 			$('.temperature').html(response.currently.temperature);
 			$('.humidity').html(response.currently.humidity);
 			$('.feels_like').html(response.currently.apparentTemperature);
 			$('.summary').html(response.currently.summary);
-			$('.weekly_weather').append("<section class='glance'>Upcoming Weather</section>")
+			$('.weekly_weather').html('');
+			$('.weekly_weather').append("<section class='glance'>Upcoming Weather</section>");
 			for (var i=0; i<response.daily.data.length; i++){
-				$('.weekly_weather').append("<section class='daily_weather'></section>")
+				$('.weekly_weather').append("<section class='daily_weather'></section>");
 				$('.daily_weather').eq(i).append("<section class='daily_hi'> Hi: "+response.daily.data[i].temperatureMax+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_lo'> Lo: "+response.daily.data[i].temperatureMin+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_summary'>"+response.daily.data[i].summary+"</section>");
@@ -206,24 +209,9 @@ var drawChart = function(response){
 
 };
 
-// var fadeIn = function(){
-// 	$('td').fadeIn("slow", function(){});
-// };
-
-
-
-
-
-
-
-// Dark Sky API
-// import DarkSkyApi from 'dark-sky-api';
-// var DarkSkySpi = require("DarkSkyApi");
-// DarkSkyApi.apiKey = ENV["DARK_SKY"];
-// DarkSkyApi.initialize();
-
-// current weather
-// var getCurrent = function(){
-// 	DarkSkyApi.loadCurrent()
-// 		.then(result => console.log(result));
-// };
+var scrollToTop = function(){
+	$('body').animate({ 
+		scrollTop: 0 },
+		'slow' 
+	);
+};
