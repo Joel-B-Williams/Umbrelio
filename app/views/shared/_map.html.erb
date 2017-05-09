@@ -3,7 +3,7 @@
 	<input id="searchbox" type="text" placeholder="Enter Location">
 
 	<div id='forecast'>
-		<%= form_tag('/forecast') do %>
+		<%= form_tag('/forecast', remote: true) do %>
 			<%= submit_tag "Get Forecast", class: 'forecast-button button' %>
 		<% end %>
 	</div>
