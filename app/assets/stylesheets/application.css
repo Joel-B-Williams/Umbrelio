@@ -97,6 +97,42 @@ th:last-child {
 	margin-bottom: 1vh;
 }
 
+/*forms*/
+.form {
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+}
+
+.form-item {
+	display: block;
+	margin: auto;
+	text-align: center;
+	padding: 5px;
+	width: 50vw;
+	height: 5vw;
+}
+
+.form-label {
+	font-weight: bold;
+	font-size: 2em;
+}
+
+.form-field {
+	font-size: 2em;
+}
+
+.form-button {
+	margin-top: 20px;
+	width: 25vw;
+	background-color: #1a778c;
+	border-radius: 25px;
+	/*color: #d7dae0;*/
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+
+
 #past_weather {
 	/*border-bottom: solid #1a778c 1px;*/
 	/*padding-bottom: 1vh;*/
