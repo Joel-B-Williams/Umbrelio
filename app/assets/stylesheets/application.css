@@ -147,7 +147,7 @@ th:last-child {
 	margin-top: 1vh;
 }
 
-#forecast {
+.forecast_form {
 	/*height: 5vh;*/
 	width: 10vw;
 	margin: auto;

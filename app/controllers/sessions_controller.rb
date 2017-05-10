@@ -3,8 +3,6 @@ class SessionsController < ApplicationController
 
 	def new
 		@user = User.new
-		p "*"*50
-		p "session new action"
 	end
 
 	def create

@@ -10,13 +10,13 @@ class UsersController < ApplicationController
 			login(@user)
 			redirect_to user_path(@user)
 		else
-			# flash.now[:danger] = "Errors detected.  Activating Orbital Railguns."
 			render 'new'
 		end
 	end
 
 	def show
-
+		@user = current_user
+		@forecast = Forecast.new
 	end
 
 	private

@@ -94,9 +94,11 @@ var chooseLocation = function(map, searchBox){
 
 // get forecast for area at center of map
 var getForecast = function(map){
-	$('#forecast form').on('submit', function(e){
+	$('.forecast_form').on('submit', function(e){
 		e.preventDefault();
+		console.log('poop')
 		var $this = $(this);
+		console.log($this)
 
 		var url = $this.attr('action');
 		var method = $this.attr('method');
