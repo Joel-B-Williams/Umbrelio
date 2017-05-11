@@ -4,4 +4,5 @@ class ApplicationController < ActionController::Base
   include StaticControllerHelper
   include SessionsHelper
   include UsersHelper
+  include ForecastsHelper
 end
