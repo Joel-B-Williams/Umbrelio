@@ -147,7 +147,7 @@ th:last-child {
 #map {
 	height: 55vh;
 	width: 80vw;
-	margin-left: 0vw;
+	margin:auto;
 	margin-top: 1vh;
 }
 

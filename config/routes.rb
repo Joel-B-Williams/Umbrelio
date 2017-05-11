@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # resources :sessions, only: [:new]
   resources :users, only: [:create, :new, :show] 
-  resources :forecasts, only: [:create, :new]
+  resources :forecasts, only: [:create, :new, :index]
   
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

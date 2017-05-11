@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 	def create
 		@user = User.create(user_params)
 		if @user.save
-			# flash[:success] = "Welcome cadet."
 			login(@user)
 			redirect_to user_path(@user)
 		else
@@ -17,8 +16,6 @@ class UsersController < ApplicationController
 	def show
 		@user = current_user
 		@forecast = Forecast.new
-		@recent_searches = @user.forecasts.order(created_at: :desc).limit(10)
-
 	end
 
 	private

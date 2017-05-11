@@ -12,20 +12,17 @@ class ForecastsController < ApplicationController
 		# redirect_to user_path(@user)
 
 		base_url = "https://api.darksky.net/forecast"
-		key = ENV["DARK_SKY"]
+		dark_sky_key = ENV["DARK_SKY"]
 		latitude = params[:lat]
 		longitude = params[:lng]
-		api_url = "#{base_url}/#{key}/#{latitude},#{longitude}"
+		api_url = "#{base_url}/#{dark_sky_key}/#{latitude},#{longitude}"
 
 		location_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
 		google_key = ENV["GOOGLE_MAPS"]
 		location = HTTParty.get(location_url+latitude+','+longitude+'&key='+google_key).parsed_response
 		
-		city = location["results"][0]["address_components"][3]["long_name"]
-		state = location["results"][0]["address_components"][5]["short_name"]
 		address = location["results"][0]["formatted_address"]
-		p "*"*50
-		p address
+		
 		@forecast.location = address
 
 		@forecast.user_id = current_user.id
@@ -58,6 +55,11 @@ class ForecastsController < ApplicationController
 		else
 			redirect_to user_path(@user)
 		end
+	end
+
+	def index
+		@user = current_user
+		@recent_searches = @user.forecasts.order(created_at: :desc).limit(10)
 	end
 
 	private
