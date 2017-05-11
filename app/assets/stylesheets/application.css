@@ -17,6 +17,25 @@ body {
 	font-family: jura;
 }
 
+h1 {
+	font-size: 2em;
+	width: 50vw;
+	margin: auto;
+	margin-right: 5vw;
+	float: right;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+	font-style: italic;
+	/*float: left;*/
+}
+
 footer {
 	text-align: center;
 	margin-top: 5vh;
@@ -26,34 +45,6 @@ footer a {
 	text-decoration: none;
 	color: black;
 	/*font-family: jura;*/
-	font-style: italic;
-}
-
-
-
-.button {
-	border: solid black 1px;
-	text-decoration: none;
-	color: black;
-	background: grey;
-	padding: 5px 10px 5px 10px;
-	border-radius: 25px;
-}
-
-.weather_table {
-	width: 80vw;
-	margin: auto;
-	text-align: center;
-	border-bottom: solid #1a778c 1px;
-	/*font-family: jura;*/
-}
-
-.details {
-	font-size: 3em;
-}
-
-.summary {
-	font-size: 2em;
 	font-style: italic;
 }
 
@@ -69,6 +60,23 @@ th:first-child {
 
 th:last-child {
 	border-top-right-radius: 10px;
+}
+
+.weather_table {
+	width: 80vw;
+	margin: auto;
+	text-align: center;
+	border-bottom: solid #1a778c 1px;
+	clear: both;
+}
+
+.details {
+	font-size: 3em;
+}
+
+.summary {
+	font-size: 2em;
+	font-style: italic;
 }
 
 .weekly_weather {
@@ -97,9 +105,74 @@ th:last-child {
 	margin-bottom: 1vh;
 }
 
+/*forms*/
+.form {
+	margin-top: 5vh;
+	margin-bottom: 5vh;
+	clear: both;
+}
+
+.form-item {
+	display: block;
+	margin: auto;
+	text-align: center;
+	padding: 5px;
+	width: 50vw;
+	height: 5vw;
+}
+
+.form-label {
+	font-weight: bold;
+	font-size: 2em;
+}
+
+.form-field {
+	font-size: 2em;
+}
+
+.form-button {
+	margin-top: 20px;
+	width: 25vw;
+	background-color: #1a778c;
+	border-radius: 25px;
+	/*color: #d7dae0;*/
+	font-size: 1.5em;
+	font-weight: bold;
+	font-family: jura;
+}
+
+/* lists */
+
+.nav_list {
+	float: left;
+}
+
+.recent_searches {
+	width: 50vw;
+	display: block;
+	margin: auto;
+	text-align: center;
+	/*float: left;*/
+}
+
+.recent_searches p {
+	font-style: italic;
+	font-size: 1.5em;
+	text-align: center;
+	clear: both;
+}
+
+/* img */
+.umbrella img {
+	display: block;
+	height: 30vh;
+	margin: auto;
+	clear: both;
+	/*width: 30vw;*/
+}
+
+
 #past_weather {
-	/*border-bottom: solid #1a778c 1px;*/
-	/*padding-bottom: 1vh;*/
 	width: 80vw;
 	margin: auto;
 }
@@ -107,14 +180,8 @@ th:last-child {
 #map {
 	height: 55vh;
 	width: 80vw;
-	margin: auto;
+	margin:auto;
 	margin-top: 1vh;
 }
 
-#forecast {
-	/*height: 5vh;*/
-	width: 10vw;
-	margin: auto;
-	margin-top: 5vh;
-}
 

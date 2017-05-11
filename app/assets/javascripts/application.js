@@ -30,27 +30,10 @@ var initMap = function(){
 	});
 	
 	addSearchBox(map);
-	// createSearchBox(map);
-	// var pageDiv = document.getElementById('searchbox');
-	// var searchBox = new google.maps.places.Autocomplete(pageDiv, {types: ['(cities)']});
-	// map.controls[google.maps.ControlPosition.TOP].push(pageDiv);
-
-  // map.addListener('bounds_changed', function() {
-  //   searchBox.setBounds(map.getBounds());
-  // });
-
   getLocation(map);
 	getForecast(map);
 };
 
-// create base map
-// var createMap = function(){
-// 	var map = new google.maps.Map(document.getElementById('map'), {
-// 		// hardcode Chicago for now as default
-// 		center: {lat:41.875586, lng:-87.627105},
-// 		zoom: 4
-// 	});
-// };
 
 // add searchBox to map
 var addSearchBox = function(map){
@@ -94,11 +77,12 @@ var chooseLocation = function(map, searchBox){
 
 // get forecast for area at center of map
 var getForecast = function(map){
-	$('#forecast form').on('submit', function(e){
+	$('.forecast_form').on('submit', function(e){
 		e.preventDefault();
 		var $this = $(this);
 
 		var url = $this.attr('action');
+
 		var method = $this.attr('method');
 		var lat = getLat(map);
 		var lng = getLng(map);
@@ -118,9 +102,7 @@ var getForecast = function(map){
 			enlargeWeekly();
 			enlargePast();
 			scrollToTop();
-			// $('#forecast').prop('disabled', false);
-			// console.log(response)
-			// console.log(response.currently)		
+	
 			$('.temperature').html(response.currently.temperature);
 			$('.humidity').html(response.currently.humidity);
 			$('.feels_like').html(response.currently.apparentTemperature);

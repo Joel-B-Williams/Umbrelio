@@ -1,0 +1,6 @@
+	<section>
+		<%= form_for [@user, @forecast], { url: forecasts_path(@user, @forecast), html: { class: 'forecast_form' }, remote: true } do |f| %>
+		
+			<%= f.submit "Get Forecast", class: 'form-item form-button' %>
+		<% end %>
+	</section>

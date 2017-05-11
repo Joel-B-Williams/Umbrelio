@@ -1,0 +1,5 @@
+  <section class='flash-section'>
+  	<% flash.each do |message_type, message| %>
+  		<%= content_tag(:section, message, class: "alert alert-#{message_type}") %>
+  	<% end %>
+  </section>
