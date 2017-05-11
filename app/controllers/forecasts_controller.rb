@@ -4,6 +4,7 @@ class ForecastsController < ApplicationController
 		@forecast = Forecast.new
 	end
 
+# terribly horribly fat controller - move to helper
 	def create
 		@user = current_user
 		@forecast = Forecast.new(forecast_params)
