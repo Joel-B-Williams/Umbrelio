@@ -23,7 +23,10 @@ class ForecastsController < ApplicationController
 		
 		city = location["results"][0]["address_components"][3]["long_name"]
 		state = location["results"][0]["address_components"][5]["short_name"]
-		@forecast.location = city+', '+state
+		address = location["results"][0]["formatted_address"]
+		p "*"*50
+		p address
+		@forecast.location = address
 
 		@forecast.user_id = current_user.id
 
