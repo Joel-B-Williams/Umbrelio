@@ -1,5 +1,5 @@
 <section>
-	<ul>
+	<ul class='nav_list'>
 	<% if logged_in? %>
 		<li> <%= link_to 'New Forecast', user_path(current_user.id) %> </li>
 		<li> <%= link_to 'Search History', forecasts_path(current_user.id) %> </li>
@@ -9,4 +9,5 @@
 		<li> <%= link_to 'Signup', new_user_path %> </li>
 	<% end %>
 	</ul>
+	<h1>Umbrelio</h1>
 </section>
