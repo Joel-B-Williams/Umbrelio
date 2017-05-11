@@ -96,11 +96,10 @@ var chooseLocation = function(map, searchBox){
 var getForecast = function(map){
 	$('.forecast_form').on('submit', function(e){
 		e.preventDefault();
-		console.log('poop')
 		var $this = $(this);
-		console.log($this)
 
 		var url = $this.attr('action');
+		console.log(url)
 		var method = $this.attr('method');
 		var lat = getLat(map);
 		var lng = getLng(map);
