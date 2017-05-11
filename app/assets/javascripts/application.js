@@ -15,10 +15,20 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function(){
+// $(document).ready(function(){
+// 	initMap();
+// 	google.charts.load('current', {'packages':['corechart']});
+// });
+
+// $(document).on("pageshow", '#map', function(){
+// 	initMap();
+// 	google.charts.load('current', {'packages':['corechart']});
+// });
+
+document.addEventListener('turbolinks:load', function(){
 	initMap();
-	google.charts.load('current', {'packages':['corechart']});
-});
+	google.charts.load('current', {'packages':['corechart']});	
+})
 
 // create map with searchbox
 var initMap = function(){
