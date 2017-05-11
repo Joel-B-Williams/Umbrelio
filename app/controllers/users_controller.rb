@@ -17,6 +17,8 @@ class UsersController < ApplicationController
 	def show
 		@user = current_user
 		@forecast = Forecast.new
+		@recent_searches = @user.forecasts.order(created_at: :desc).limit(10)
+
 	end
 
 	private

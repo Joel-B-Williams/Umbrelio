@@ -99,7 +99,7 @@ var getForecast = function(map){
 		var $this = $(this);
 
 		var url = $this.attr('action');
-		console.log(url)
+
 		var method = $this.attr('method');
 		var lat = getLat(map);
 		var lng = getLng(map);

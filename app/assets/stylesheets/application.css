@@ -29,15 +29,18 @@ footer a {
 	font-style: italic;
 }
 
+th {
+	background-color: #1a778c;
+	width: 33%;
+	font-size: 1.5em;
+}
 
+th:first-child {
+	border-top-left-radius: 10px;
+}
 
-.button {
-	border: solid black 1px;
-	text-decoration: none;
-	color: black;
-	background: grey;
-	padding: 5px 10px 5px 10px;
-	border-radius: 25px;
+th:last-child {
+	border-top-right-radius: 10px;
 }
 
 .weather_table {
@@ -55,20 +58,6 @@ footer a {
 .summary {
 	font-size: 2em;
 	font-style: italic;
-}
-
-th {
-	background-color: #1a778c;
-	width: 33%;
-	font-size: 1.5em;
-}
-
-th:first-child {
-	border-top-left-radius: 10px;
-}
-
-th:last-child {
-	border-top-right-radius: 10px;
 }
 
 .weekly_weather {
@@ -129,7 +118,22 @@ th:last-child {
 	/*color: #d7dae0;*/
 	font-size: 1.5em;
 	font-weight: bold;
+	font-family: jura;
 }
+
+.recent_searches {
+	width: 9vw;
+	float: left;
+}
+
+.search_list {
+	list-style: none;
+	padding-left: 1vw;
+}
+
+/*.search_list li {
+	text-decoration: none;
+}*/
 
 
 
@@ -143,14 +147,8 @@ th:last-child {
 #map {
 	height: 55vh;
 	width: 80vw;
-	margin: auto;
+	margin-left: 0vw;
 	margin-top: 1vh;
 }
 
-.forecast_form {
-	/*height: 5vh;*/
-	width: 10vw;
-	margin: auto;
-	margin-top: 5vh;
-}
 

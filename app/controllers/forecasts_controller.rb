@@ -5,10 +5,8 @@ class ForecastsController < ApplicationController
 	end
 
 	def create
-		p "*"*50
-		p params
 		@user = current_user
-		@forecast = Forecast.new
+		@forecast = Forecast.new(forecast_params)
 		# @forecast = Forecast.create(forecast_params)
 		# redirect_to user_path(@user)
 
@@ -18,37 +16,48 @@ class ForecastsController < ApplicationController
 		longitude = params[:lng]
 		api_url = "#{base_url}/#{key}/#{latitude},#{longitude}"
 
-		current = HTTParty.get(api_url).parsed_response
-		one_day_ago = HTTParty.get(api_url+format_time(Time.now - 1.day)).parsed_response
-		two_days_ago = HTTParty.get(api_url+format_time(Time.now - 2.days)).parsed_response
-		three_days_ago = HTTParty.get(api_url+format_time(Time.now - 3.days)).parsed_response
-		four_days_ago = HTTParty.get(api_url+format_time(Time.now - 4.days)).parsed_response
-		five_days_ago = HTTParty.get(api_url+format_time(Time.now - 5.days)).parsed_response
-		six_days_ago = HTTParty.get(api_url+format_time(Time.now - 6.days)).parsed_response
-		seven_days_ago = HTTParty.get(api_url+format_time(Time.now - 7.days)).parsed_response
+		location_url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='
+		google_key = ENV["GOOGLE_MAPS"]
+		location = HTTParty.get(location_url+latitude+','+longitude+'&key='+google_key).parsed_response
 		
-		 
-		response = current
-	
-		response["one_day_ago"] = one_day_ago["daily"]["data"][0]
-		response["two_days_ago"] = two_days_ago["daily"]["data"][0]
-		response["three_days_ago"] = three_days_ago["daily"]["data"][0]
-		response["four_days_ago"] = four_days_ago["daily"]["data"][0]
-		response["five_days_ago"] = five_days_ago["daily"]["data"][0]
-		response["six_days_ago"] = six_days_ago["daily"]["data"][0]
-		response["seven_days_ago"] = seven_days_ago["daily"]["data"][0]
+		city = location["results"][0]["address_components"][3]["long_name"]
+		state = location["results"][0]["address_components"][5]["short_name"]
+		@forecast.location = city+', '+state
 
-		p "*"*50
-		p response
+		@forecast.user_id = current_user.id
 
-		# respond_to do |format|
-		# 	format.json { render json: response }
-		# end
-		render :json => response
+		if @forecast.save
+			current = HTTParty.get(api_url).parsed_response
+			one_day_ago = HTTParty.get(api_url+format_time(Time.now - 1.day)).parsed_response
+			two_days_ago = HTTParty.get(api_url+format_time(Time.now - 2.days)).parsed_response
+			three_days_ago = HTTParty.get(api_url+format_time(Time.now - 3.days)).parsed_response
+			four_days_ago = HTTParty.get(api_url+format_time(Time.now - 4.days)).parsed_response
+			five_days_ago = HTTParty.get(api_url+format_time(Time.now - 5.days)).parsed_response
+			six_days_ago = HTTParty.get(api_url+format_time(Time.now - 6.days)).parsed_response
+			seven_days_ago = HTTParty.get(api_url+format_time(Time.now - 7.days)).parsed_response
+			
+			 
+			response = current
+		
+			response["one_day_ago"] = one_day_ago["daily"]["data"][0]
+			response["two_days_ago"] = two_days_ago["daily"]["data"][0]
+			response["three_days_ago"] = three_days_ago["daily"]["data"][0]
+			response["four_days_ago"] = four_days_ago["daily"]["data"][0]
+			response["five_days_ago"] = five_days_ago["daily"]["data"][0]
+			response["six_days_ago"] = six_days_ago["daily"]["data"][0]
+			response["seven_days_ago"] = seven_days_ago["daily"]["data"][0]
+
+			# respond_to do |format|
+			# 	format.json { render json: response }
+			# end
+			render :json => response
+		else
+			redirect_to user_path(@user)
+		end
 	end
 
 	private
 		def forecast_params
-			params.permit(:lat, :lng, :id)
+			params.permit(:lat, :lng)
 		end
 end
