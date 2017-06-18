@@ -26,21 +26,21 @@ class Forecast < ApplicationRecord
 		end
 	end
 
-	def add_past_week_to(response, one_day_ago, two_days_ago, three_days_ago, four_days_ago, five_days_ago, six_days_ago, seven_days_ago)
-			add_past_forecast_to(response, one_day_ago, "one_day_ago")
-			add_past_forecast_to(response, two_days_ago, "two_days_ago")
-			add_past_forecast_to(response, three_days_ago, "three_days_ago")
-			add_past_forecast_to(response, four_days_ago, "four_days_ago")
-			add_past_forecast_to(response, five_days_ago, "five_days_ago")
-			add_past_forecast_to(response, six_days_ago, "six_days_ago")
-			add_past_forecast_to(response, seven_days_ago, "seven_days_ago")
-	end
+	# def add_past_week_to(response, one_day_ago, two_days_ago, three_days_ago, four_days_ago, five_days_ago, six_days_ago, seven_days_ago)
+	# 		add_past_forecast_to(response, one_day_ago, "one_day_ago")
+	# 		add_past_forecast_to(response, two_days_ago, "two_days_ago")
+	# 		add_past_forecast_to(response, three_days_ago, "three_days_ago")
+	# 		add_past_forecast_to(response, four_days_ago, "four_days_ago")
+	# 		add_past_forecast_to(response, five_days_ago, "five_days_ago")
+	# 		add_past_forecast_to(response, six_days_ago, "six_days_ago")
+	# 		add_past_forecast_to(response, seven_days_ago, "seven_days_ago")
+	# end
 
+		def add_past_forecast_to(response, past_forecast, days_ago_as_string)
+			response[days_ago_as_string] = past_forecast["daily"]["data"][0]
+		end
 	private
 
-		def add_past_forecast_to(response, past_forecast, string)
-			response[string] = past_forecast["daily"]["data"][0]
-		end
 
 		def find_location(latitude, longitude)
 			HTTParty.get(LOCATION_URL+latitude+','+longitude+'&key='+GOOGLE_KEY).parsed_response
