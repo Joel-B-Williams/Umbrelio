@@ -36,8 +36,8 @@ class Forecast < ApplicationRecord
 	# 		add_past_forecast_to(response, seven_days_ago, "seven_days_ago")
 	# end
 
-		def add_past_forecast_to(response, past_forecast, days_ago_as_string)
-			response[days_ago_as_string] = past_forecast["daily"]["data"][0]
+		def add_past_forecast_to(response, past_forecast, days_ago)
+			response[days_ago] = past_forecast["daily"]["data"][0]
 		end
 	private
 

@@ -173,13 +173,13 @@ var enlargePast = function(){
 
 var drawChart = function(response){
 	var data = google.visualization.arrayToDataTable([
-		['Last Week', response.past7.temperatureMin, response.past7.temperatureMin, response.past7.temperatureMax, response.past7.temperatureMax],
-		['', response.past6.temperatureMin, response.past6.temperatureMin, response.past6.temperatureMax, response.past6.temperatureMax],
-		['', response.past5.temperatureMin, response.past5.temperatureMin, response.past5.temperatureMax, response.past5.temperatureMax],
-		['', response.past4.temperatureMin, response.past4.temperatureMin, response.past4.temperatureMax, response.past4.temperatureMax],
-		['', response.past3.temperatureMin, response.past3.temperatureMin, response.past3.temperatureMax, response.past3.temperatureMax],
-		['', response.past2.temperatureMin, response.past2.temperatureMin, response.past2.temperatureMax, response.past2.temperatureMax],
-		['Yesterday', response.past1.temperatureMin, response.past1.temperatureMin, response.past1.temperatureMax, response.past1.temperatureMax]
+		['Last Week', response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMax, response.days_ago_7.temperatureMax],
+		['', response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMax, response.days_ago_6.temperatureMax],
+		['', response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMax, response.days_ago_5.temperatureMax],
+		['', response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMax, response.days_ago_4.temperatureMax],
+		['', response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMax, response.days_ago_3.temperatureMax],
+		['', response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMax, response.days_ago_2.temperatureMax],
+		['Yesterday', response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMax, response.days_ago_1.temperatureMax]
 		], true);
 
 	var options = { 

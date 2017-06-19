@@ -30,7 +30,7 @@ class ForecastsController < ApplicationController
 			end
 			# response = current_forecast
 			past_forecasts.each_with_index do |past_forecast, index|
-				@forecast.add_past_forecast_to(response, past_forecast, "past#{(index+1)}")
+				@forecast.add_past_forecast_to(response, past_forecast, "days_ago_#{(index+1)}")
 			end
 
 			# @forecast.add_past_week_to(response, one_day_ago, two_days_ago, three_days_ago, four_days_ago, five_days_ago, six_days_ago, seven_days_ago)
