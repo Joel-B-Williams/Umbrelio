@@ -25,22 +25,26 @@ class Forecast < ApplicationRecord
 			HTTParty.get(Forecast.dark_sky_url(BASE_DARK_SKY_URL, DARK_SKY_KEY, latitude, longitude)+format_time(Time.now - days_ago.days)).parsed_response
 		end
 	end
+	
+	def add_past_forecast_to(response, past_forecast, days_ago)
+		response[days_ago] = past_forecast["daily"]["data"][0]
+	end
 
-	# def add_past_week_to(response, one_day_ago, two_days_ago, three_days_ago, four_days_ago, five_days_ago, six_days_ago, seven_days_ago)
-	# 		add_past_forecast_to(response, one_day_ago, "one_day_ago")
-	# 		add_past_forecast_to(response, two_days_ago, "two_days_ago")
-	# 		add_past_forecast_to(response, three_days_ago, "three_days_ago")
-	# 		add_past_forecast_to(response, four_days_ago, "four_days_ago")
-	# 		add_past_forecast_to(response, five_days_ago, "five_days_ago")
-	# 		add_past_forecast_to(response, six_days_ago, "six_days_ago")
-	# 		add_past_forecast_to(response, seven_days_ago, "seven_days_ago")
-	# end
+	def assemble_past_forecasts(latitude, longitude)
+			past_forecasts = []
+			7.times do |index|
+				past_forecasts <<	self.get_past_forecast((index+1), latitude, longitude)
+			end
+			past_forecasts
+	end
 
-		def add_past_forecast_to(response, past_forecast, days_ago)
-			response[days_ago] = past_forecast["daily"]["data"][0]
-		end
+	def build_full_response(array_of_past_forecasts, response)
+		array_of_past_forecasts.each_with_index do |past_forecast, index|
+				self.add_past_forecast_to(response, past_forecast, "days_ago_#{(index+1)}")
+			end
+	end
+
 	private
-
 
 		def find_location(latitude, longitude)
 			HTTParty.get(LOCATION_URL+latitude+','+longitude+'&key='+GOOGLE_KEY).parsed_response
