@@ -173,22 +173,22 @@ var enlargePast = function(){
 
 var drawChart = function(response){
 	var data = google.visualization.arrayToDataTable([
-		['Last Week', response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMin, response.seven_days_ago.temperatureMax, response.seven_days_ago.temperatureMax],
-		['', response.six_days_ago.temperatureMin, response.six_days_ago.temperatureMin, response.six_days_ago.temperatureMax, response.six_days_ago.temperatureMax],
-		['', response.five_days_ago.temperatureMin, response.five_days_ago.temperatureMin, response.five_days_ago.temperatureMax, response.five_days_ago.temperatureMax],
-		['', response.four_days_ago.temperatureMin, response.four_days_ago.temperatureMin, response.four_days_ago.temperatureMax, response.four_days_ago.temperatureMax],
-		['', response.three_days_ago.temperatureMin, response.three_days_ago.temperatureMin, response.three_days_ago.temperatureMax, response.three_days_ago.temperatureMax],
-		['', response.two_days_ago.temperatureMin, response.two_days_ago.temperatureMin, response.two_days_ago.temperatureMax, response.two_days_ago.temperatureMax],
-		['Yesterday', response.one_day_ago.temperatureMin, response.one_day_ago.temperatureMin, response.one_day_ago.temperatureMax, response.one_day_ago.temperatureMax]
+		['Last Week', response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMax, response.days_ago_7.temperatureMax],
+		['', response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMax, response.days_ago_6.temperatureMax],
+		['', response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMax, response.days_ago_5.temperatureMax],
+		['', response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMax, response.days_ago_4.temperatureMax],
+		['', response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMax, response.days_ago_3.temperatureMax],
+		['', response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMax, response.days_ago_2.temperatureMax],
+		['Yesterday', response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMax, response.days_ago_1.temperatureMax]
 		], true);
 
 	var options = { 
 		legend: 'none',
 		colors: ['#1a778c'],
-		fontName: 'jura',
+		fontName: 'helvetica',
 		title: 'Past week daily hi/lo',
 		titleTextStyle: {
-			fontName: 'jura',
+			fontName: 'helvetica',
 			italic: true,
 			fontSize: 18
 		}
