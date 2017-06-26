@@ -28,6 +28,8 @@ class Forecast < ApplicationRecord
 	
 	def add_past_forecast_to(response, past_forecast, days_ago)
 		response[days_ago] = past_forecast["daily"]["data"][0]
+		p "*"*40
+		p response[days_ago]["time"]
 	end
 
 	def assemble_past_forecasts(latitude, longitude)
