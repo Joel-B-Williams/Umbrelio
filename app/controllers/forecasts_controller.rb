@@ -7,7 +7,7 @@ class ForecastsController < ApplicationController
 	def create
 		latitude = params[:lat]
 		longitude = params[:lng]
-
+		
 		@user = current_user
 		@forecast = Forecast.new(forecast_params)
 		@forecast.location = @forecast.find_address(latitude, longitude)

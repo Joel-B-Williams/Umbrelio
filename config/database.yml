@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: umbrelio_production
-  username: umbrelio
+  username: <%= ENV['DB_USER'] %>
   password: <%= ENV['UMBRELIO_DATABASE_PASSWORD'] %>
