@@ -1,5 +1,5 @@
 class Forecast < ApplicationRecord
-	belongs_to :user
+	# belongs_to :user
 
 	BASE_DARK_SKY_URL = "https://api.darksky.net/forecast"
 	DARK_SKY_KEY = ENV["DARK_SKY"]
@@ -47,7 +47,8 @@ class Forecast < ApplicationRecord
 	private
 
 		def find_location(latitude, longitude)
-			HTTParty.get(LOCATION_URL+latitude+','+longitude+'&key='+GOOGLE_KEY).parsed_response
+			p"*"*50
+			p HTTParty.get(LOCATION_URL+latitude+','+longitude+'&key='+GOOGLE_KEY).parsed_response
 		end
 
 		def format_time(time)

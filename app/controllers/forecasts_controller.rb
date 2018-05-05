@@ -8,10 +8,8 @@ class ForecastsController < ApplicationController
 		latitude = params[:lat]
 		longitude = params[:lng]
 		
-		@user = current_user
 		@forecast = Forecast.new(forecast_params)
 		@forecast.location = @forecast.find_address(latitude, longitude)
-		@forecast.user_id = current_user.id
 
 		if @forecast.save
 			response = @forecast.get_current_forecast(latitude, longitude)
@@ -20,14 +18,15 @@ class ForecastsController < ApplicationController
 
 			render :json => response
 		else
-			redirect_to user_path(@user)
+			redirect_to root_path
+			flash.now[:error]="Something has gone pear shaped"
 		end
 	end
 
-	def index
-		@user = current_user
-		@recent_searches = @user.forecasts.order(created_at: :desc).limit(10)
-	end
+	# def index
+	# 	@user = current_user
+	# 	@recent_searches = @user.forecasts.order(created_at: :desc).limit(10)
+	# end
 
 	private
 		def forecast_params

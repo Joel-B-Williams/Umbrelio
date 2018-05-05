@@ -3,7 +3,7 @@ class StaticController < ApplicationController
 	def home
 	end
 
-	def forecast
+	# def forecast
 
 	# # move this noise into a helper
 	# 	base_url = "https://api.darksky.net/forecast"
@@ -39,6 +39,6 @@ class StaticController < ApplicationController
 	# 		# 	redirect_to 'static#home' }
 	# 	end
 
-	end
+	# end
 
 end
