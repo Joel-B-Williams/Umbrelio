@@ -47,8 +47,7 @@ class Forecast < ApplicationRecord
 	private
 
 		def find_location(latitude, longitude)
-			p"*"*50
-			p HTTParty.get(LOCATION_URL+latitude+','+longitude+'&key='+GOOGLE_KEY).parsed_response
+		  HTTParty.get(LOCATION_URL+latitude+','+longitude+'&key='+GOOGLE_KEY).parsed_response
 		end
 
 		def format_time(time)

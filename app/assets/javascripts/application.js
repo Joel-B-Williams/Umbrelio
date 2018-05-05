@@ -101,7 +101,7 @@ var getForecast = function(map){
 			lng: lng
 		};
 		
-
+console.log('pushed')
 		$.ajax({
 			url: url,
 			method: method,
@@ -126,7 +126,7 @@ var getForecast = function(map){
 				$('.daily_weather').eq(i).append("<section class='daily_summary'>"+response.daily.data[i].summary+"</section>");
 			};
 
-			drawChart(response);
+			// drawChart(response);
 
 		});
 	});
@@ -171,35 +171,35 @@ var enlargePast = function(){
 
 // draw chart pulled from past data
 
-var drawChart = function(response){
-	var data = google.visualization.arrayToDataTable([
-		['Last Week', response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMax, response.days_ago_7.temperatureMax],
-		['', response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMax, response.days_ago_6.temperatureMax],
-		['', response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMax, response.days_ago_5.temperatureMax],
-		['', response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMax, response.days_ago_4.temperatureMax],
-		['', response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMax, response.days_ago_3.temperatureMax],
-		['', response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMax, response.days_ago_2.temperatureMax],
-		['Yesterday', response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMax, response.days_ago_1.temperatureMax]
-		], true);
+// var drawChart = function(response){
+// 	var data = google.visualization.arrayToDataTable([
+// 		['Last Week', response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMax, response.days_ago_7.temperatureMax],
+// 		['', response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMax, response.days_ago_6.temperatureMax],
+// 		['', response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMax, response.days_ago_5.temperatureMax],
+// 		['', response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMax, response.days_ago_4.temperatureMax],
+// 		['', response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMax, response.days_ago_3.temperatureMax],
+// 		['', response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMax, response.days_ago_2.temperatureMax],
+// 		['Yesterday', response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMax, response.days_ago_1.temperatureMax]
+// 		], true);
 
-	var options = { 
-		legend: 'none',
-		colors: ['#1a778c'],
-		fontName: 'helvetica',
-		title: 'Past week daily hi/lo',
-		titleTextStyle: {
-			fontName: 'helvetica',
-			italic: true,
-			fontSize: 18
-		}
-		// bar: {groupWidth: '100%' }
-		 };
+// 	var options = { 
+// 		legend: 'none',
+// 		colors: ['#1a778c'],
+// 		fontName: 'helvetica',
+// 		title: 'Past week daily hi/lo',
+// 		titleTextStyle: {
+// 			fontName: 'helvetica',
+// 			italic: true,
+// 			fontSize: 18
+// 		}
+// 		// bar: {groupWidth: '100%' }
+// 		 };
 
-	var chart = new google.visualization.CandlestickChart(document.getElementById('past_weather'));
+// 	var chart = new google.visualization.CandlestickChart(document.getElementById('past_weather'));
 
-	chart.draw(data, options);
+// 	chart.draw(data, options);
 
-};
+// };
 
 var scrollToTop = function(){
 	$('body').animate({ 
