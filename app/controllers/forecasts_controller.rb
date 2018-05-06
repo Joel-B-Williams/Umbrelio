@@ -14,7 +14,7 @@ class ForecastsController < ApplicationController
 		if @forecast.save
 			response = @forecast.get_current_forecast(latitude, longitude)
 
-			@forecast.build_full_response(@forecast.assemble_past_forecasts(latitude, longitude), response)
+			# @forecast.build_full_response(@forecast.assemble_past_forecasts(latitude, longitude), response)
 
 			render :json => response
 		else

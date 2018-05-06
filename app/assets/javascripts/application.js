@@ -21,12 +21,12 @@
 // });
 
 // $(document).on("pageshow", '#map', function(){
-// 	initMap();
+	// initMap();
 // 	google.charts.load('current', {'packages':['corechart']});
 // });
 
 document.addEventListener('turbolinks:load', function(){
-	initMap();
+	initMap(); //causing firstChild error on static#home
 	google.charts.load('current', {'packages':['corechart']});	
 })
 
@@ -100,8 +100,17 @@ var getForecast = function(map){
 			lat: lat,
 			lng: lng
 		};
-		
-console.log('pushed')
+
+// ajax call throwing 500 Error:
+// TypeError (no implicit conversion of nil into String):
+// app/models/forecast.rb:50:in `+'
+// app/models/forecast.rb:50:in `find_location'
+// app/models/forecast.rb:14:in `find_address'
+// app/controllers/forecasts_controller.rb:12:in `create'
+/*
+Forecase create seems to be firing twice, second set of params has utf8 and commit, not lat/lng, which causes fucntions to fire with nil values & error out
+*/
+
 		$.ajax({
 			url: url,
 			method: method,
@@ -110,29 +119,45 @@ console.log('pushed')
 		.done(function(response){
 			enlargeTable();
 			enlargeWeekly();
-			enlargePast();
+			// enlargePast();
 			scrollToTop();
-	
+	// console.log(response);
 			$('.temperature').html(response.currently.temperature);
 			$('.humidity').html(response.currently.humidity);
 			$('.feels_like').html(response.currently.apparentTemperature);
 			$('.summary').html(response.currently.summary);
 			$('.weekly_weather').html('');
 			$('.weekly_weather').append("<section class='glance'>Upcoming Weather</section>");
+			
 			for (var i=0; i<response.daily.data.length; i++){
 				$('.weekly_weather').append("<section class='daily_weather'></section>");
+				if (i==0)
+				{
+					$('.daily_weather').eq(i).append("<section class='day_of_week'> Today </section>");
+				} else {
+					$('.daily_weather').eq(i).append("<section class='day_of_week'>"+getDay(response, i)+"</section>");
+				}
 				$('.daily_weather').eq(i).append("<section class='daily_hi'> Hi: "+response.daily.data[i].temperatureMax+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_lo'> Lo: "+response.daily.data[i].temperatureMin+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_summary'>"+response.daily.data[i].summary+"</section>");
 			};
-
+			
 			// drawChart(response);
-
+			
 		});
 	});
 };
 
-
+// get day of week from DarkSky Response
+var getDay = function(response, idx){
+	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+	var epoch = response.daily.data[idx].time;
+	var date = new Date();
+	date.setTime(epoch*1000);
+	var numeric = date.getDay();
+	var day = days[numeric];
+	return day;
+}
 
 // get coordinates from center of map
 var getLat = function(map){
@@ -162,12 +187,12 @@ var enlargeWeekly = function(){
 	);
 }
 
-var enlargePast = function(){
-	$('#past_weather').animate(
-	{ height: '35vh' },
-	{ duration: 1000 }
-	);
-}
+// var enlargePast = function(){
+// 	$('#past_weather').animate(
+// 	{ height: '35vh' },
+// 	{ duration: 1000 }
+// 	);
+// }
 
 // draw chart pulled from past data
 

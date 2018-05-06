@@ -18,31 +18,31 @@ class Forecast < ApplicationRecord
 		HTTParty.get(Forecast.dark_sky_url(BASE_DARK_SKY_URL, DARK_SKY_KEY, latitude, longitude))
 	end
 
-	def get_past_forecast(days_ago, latitude, longitude)
-		if days_ago == 1
-			HTTParty.get(Forecast.dark_sky_url(BASE_DARK_SKY_URL, DARK_SKY_KEY, latitude, longitude)+format_time(Time.now - days_ago.day)).parsed_response
-		else
-			HTTParty.get(Forecast.dark_sky_url(BASE_DARK_SKY_URL, DARK_SKY_KEY, latitude, longitude)+format_time(Time.now - days_ago.days)).parsed_response
-		end
-	end
+	# def get_past_forecast(days_ago, latitude, longitude)
+	# 	if days_ago == 1
+	# 		HTTParty.get(Forecast.dark_sky_url(BASE_DARK_SKY_URL, DARK_SKY_KEY, latitude, longitude)+format_time(Time.now - days_ago.day)).parsed_response
+	# 	else
+	# 		HTTParty.get(Forecast.dark_sky_url(BASE_DARK_SKY_URL, DARK_SKY_KEY, latitude, longitude)+format_time(Time.now - days_ago.days)).parsed_response
+	# 	end
+	# end
 	
-	def add_past_forecast_to(response, past_forecast, days_ago)
-		response[days_ago] = past_forecast["daily"]["data"][0]
-	end
+	# def add_past_forecast_to(response, past_forecast, days_ago)
+	# 	response[days_ago] = past_forecast["daily"]["data"][0]
+	# end
 
-	def assemble_past_forecasts(latitude, longitude)
-			past_forecasts = []
-			7.times do |index|
-				past_forecasts <<	self.get_past_forecast((index+1), latitude, longitude)
-			end
-			past_forecasts
-	end
+	# def assemble_past_forecasts(latitude, longitude)
+	# 		past_forecasts = []
+	# 		7.times do |index|
+	# 			past_forecasts <<	self.get_past_forecast((index+1), latitude, longitude)
+	# 		end
+	# 		past_forecasts
+	# end
 
-	def build_full_response(array_of_past_forecasts, response)
-		array_of_past_forecasts.each_with_index do |past_forecast, index|
-				self.add_past_forecast_to(response, past_forecast, "days_ago_#{(index+1)}")
-			end
-	end
+	# def build_full_response(array_of_past_forecasts, response)
+	# 	array_of_past_forecasts.each_with_index do |past_forecast, index|
+	# 			self.add_past_forecast_to(response, past_forecast, "days_ago_#{(index+1)}")
+	# 		end
+	# end
 
 	private
 
