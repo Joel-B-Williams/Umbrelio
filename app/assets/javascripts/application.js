@@ -87,7 +87,7 @@ var chooseLocation = function(map, searchBox){
 
 // get forecast for area at center of map
 var getForecast = function(map){
-	$('.forecast_form').on('submit', function(e){
+	$('.forecast_form').on('click', function(e){
 		e.preventDefault();
 		var $this = $(this);
 
@@ -101,27 +101,17 @@ var getForecast = function(map){
 			lng: lng
 		};
 
-// ajax call throwing 500 Error:
-// TypeError (no implicit conversion of nil into String):
-// app/models/forecast.rb:50:in `+'
-// app/models/forecast.rb:50:in `find_location'
-// app/models/forecast.rb:14:in `find_address'
-// app/controllers/forecasts_controller.rb:12:in `create'
-/*
-Forecase create seems to be firing twice, second set of params has utf8 and commit, not lat/lng, which causes fucntions to fire with nil values & error out
-*/
-
 		$.ajax({
 			url: url,
 			method: method,
-			data: data
+			data: data,
+			dataType: "json"
 		})
 		.done(function(response){
 			enlargeTable();
 			enlargeWeekly();
 			// enlargePast();
 			scrollToTop();
-	// console.log(response);
 			$('.temperature').html(response.currently.temperature);
 			$('.humidity').html(response.currently.humidity);
 			$('.feels_like').html(response.currently.apparentTemperature);
@@ -169,7 +159,6 @@ var getLng = function(map){
 	var centerCoords = map.getCenter();
 	return centerCoords.lng();
 };
-
 
 // styling
 

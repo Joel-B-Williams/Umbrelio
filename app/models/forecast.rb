@@ -1,5 +1,6 @@
 class Forecast < ApplicationRecord
 	# belongs_to :user
+	# validates :lat, :lng, presence: true
 
 	BASE_DARK_SKY_URL = "https://api.darksky.net/forecast"
 	DARK_SKY_KEY = ENV["DARK_SKY"]
