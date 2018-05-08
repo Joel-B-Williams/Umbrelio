@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require moment
 //= require_tree .
 
 // $(document).ready(function(){
@@ -137,16 +138,22 @@ var getForecast = function(map){
 		});
 	});
 };
-
+// TODO -> utilize Timezone value to adjust to local timezone 
 // get day of week from DarkSky Response
 var getDay = function(response, idx){
+	console.log(response.timezone)
 	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-	var epoch = response.daily.data[idx].time;
-	var date = new Date();
-	date.setTime(epoch*1000);
-	var numeric = date.getDay();
-	var day = days[numeric];
-	return day;
+
+	// var epoch = response.daily.data[idx].time;
+	// var date = new Date();
+	// date.setTime(epoch*1000);
+	// var numeric = date.getDay();
+	// var day = days[numeric];
+	// return day;
+
+	var mo = moment.unix(response.daily.data[idx].time);
+	console.log( mo)
+	console.log( mo._d)
 }
 
 // get coordinates from center of map

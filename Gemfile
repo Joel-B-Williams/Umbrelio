@@ -26,6 +26,8 @@ gem 'forecast_io'
 # gem for handling Env files
 gem 'figaro'
 gem 'httparty'
+#momentJS for rails # TODO
+gem 'momentjs-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
