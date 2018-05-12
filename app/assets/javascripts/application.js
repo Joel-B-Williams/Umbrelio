@@ -16,24 +16,12 @@
 
 //= require_tree .
 
-// $(document).ready(function(){
-// 	initMap();
-// 	google.charts.load('current', {'packages':['corechart']});
-// });
-
-// $(document).on("pageshow", '#map', function(){
-	// initMap();
-// 	google.charts.load('current', {'packages':['corechart']});
-// });
-
 document.addEventListener('turbolinks:load', function(){
 	initMap(); //causing firstChild error on static#home
-	// google.charts.load('current', {'packages':['corechart']});	
 })
 
 // create map with searchbox
 var initMap = function(){
-	// createMap(); 
 	var map = new google.maps.Map(document.getElementById('map'), {
 		// hardcode Chicago for now as default
 		center: {lat:41.875586, lng:-87.627105},
@@ -111,7 +99,6 @@ var getForecast = function(map){
 		.done(function(response){
 			enlargeTable();
 			enlargeWeekly();
-			// enlargePast();
 			scrollToTop();
 			$('.temperature').html(response.currently.temperature);
 			$('.humidity').html(response.currently.humidity);
@@ -134,9 +121,6 @@ var getForecast = function(map){
 				$('.daily_weather').eq(i).append("<section class='daily_lo'> Lo: "+response.daily.data[i].temperatureMin+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_summary'>"+response.daily.data[i].summary+"</section>");
 			};
-			
-			// drawChart(response);
-			
 		});
 	});
 };
@@ -149,7 +133,6 @@ var tzCorrection = function (response){
 	if (response.daily.data[0].time < timestamp) {
 			response.daily.data.splice(0, 1);
 	};
-	// return response
 }
 
 // get day of week from DarkSky Response
@@ -192,45 +175,6 @@ var enlargeWeekly = function(){
 	{ duration: 1000 }
 	);
 }
-
-// var enlargePast = function(){
-// 	$('#past_weather').animate(
-// 	{ height: '35vh' },
-// 	{ duration: 1000 }
-// 	);
-// }
-
-// draw chart pulled from past data
-
-// var drawChart = function(response){
-// 	var data = google.visualization.arrayToDataTable([
-// 		['Last Week', response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMax, response.days_ago_7.temperatureMax],
-// 		['', response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMax, response.days_ago_6.temperatureMax],
-// 		['', response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMax, response.days_ago_5.temperatureMax],
-// 		['', response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMax, response.days_ago_4.temperatureMax],
-// 		['', response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMax, response.days_ago_3.temperatureMax],
-// 		['', response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMax, response.days_ago_2.temperatureMax],
-// 		['Yesterday', response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMax, response.days_ago_1.temperatureMax]
-// 		], true);
-
-// 	var options = { 
-// 		legend: 'none',
-// 		colors: ['#1a778c'],
-// 		fontName: 'helvetica',
-// 		title: 'Past week daily hi/lo',
-// 		titleTextStyle: {
-// 			fontName: 'helvetica',
-// 			italic: true,
-// 			fontSize: 18
-// 		}
-// 		// bar: {groupWidth: '100%' }
-// 		 };
-
-// 	var chart = new google.visualization.CandlestickChart(document.getElementById('past_weather'));
-
-// 	chart.draw(data, options);
-
-// };
 
 var scrollToTop = function(){
 	$('body').animate({ 
