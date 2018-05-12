@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require moment
+
 //= require_tree .
 
 // $(document).ready(function(){
@@ -28,7 +28,7 @@
 
 document.addEventListener('turbolinks:load', function(){
 	initMap(); //causing firstChild error on static#home
-	google.charts.load('current', {'packages':['corechart']});	
+	// google.charts.load('current', {'packages':['corechart']});	
 })
 
 // create map with searchbox
@@ -119,7 +119,9 @@ var getForecast = function(map){
 			$('.summary').html(response.currently.summary);
 			$('.weekly_weather').html('');
 			$('.weekly_weather').append("<section class='glance'>Upcoming Weather</section>");
-			
+
+			tzCorrection(response);
+
 			for (var i=0; i<response.daily.data.length; i++){
 				$('.weekly_weather').append("<section class='daily_weather'></section>");
 				if (i==0)
@@ -138,22 +140,30 @@ var getForecast = function(map){
 		});
 	});
 };
-// TODO -> utilize Timezone value to adjust to local timezone 
+
+// check first day of response for TZ inaccuracy
+var tzCorrection = function (response){
+	var now = new Date();
+	var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	var timestamp = startOfDay / 1000;
+	if (response.daily.data[0].time < timestamp) {
+			response.daily.data.splice(0, 1);
+	};
+	// return response
+}
+
 // get day of week from DarkSky Response
 var getDay = function(response, idx){
-	console.log(response.timezone)
+
 	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-	// var epoch = response.daily.data[idx].time;
-	// var date = new Date();
-	// date.setTime(epoch*1000);
-	// var numeric = date.getDay();
-	// var day = days[numeric];
-	// return day;
+	var unix = response.daily.data[idx].time;
+	var date = new Date();
+	date.setTime(unix*1000);
+	var numeric = date.getDay();
+	var day = days[numeric];
 
-	var mo = moment.unix(response.daily.data[idx].time);
-	console.log( mo)
-	console.log( mo._d)
+	return day;
 }
 
 // get coordinates from center of map
