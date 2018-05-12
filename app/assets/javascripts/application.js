@@ -13,26 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+
 //= require_tree .
 
-// $(document).ready(function(){
-// 	initMap();
-// 	google.charts.load('current', {'packages':['corechart']});
-// });
-
-// $(document).on("pageshow", '#map', function(){
-// 	initMap();
-// 	google.charts.load('current', {'packages':['corechart']});
-// });
-
 document.addEventListener('turbolinks:load', function(){
-	initMap();
-	google.charts.load('current', {'packages':['corechart']});	
+	initMap(); //causing firstChild error on static#home
 })
 
 // create map with searchbox
 var initMap = function(){
-	// createMap(); 
 	var map = new google.maps.Map(document.getElementById('map'), {
 		// hardcode Chicago for now as default
 		center: {lat:41.875586, lng:-87.627105},
@@ -87,7 +76,7 @@ var chooseLocation = function(map, searchBox){
 
 // get forecast for area at center of map
 var getForecast = function(map){
-	$('.forecast_form').on('submit', function(e){
+	$('.forecast_form').on('click', function(e){
 		e.preventDefault();
 		var $this = $(this);
 
@@ -100,39 +89,65 @@ var getForecast = function(map){
 			lat: lat,
 			lng: lng
 		};
-		
 
 		$.ajax({
 			url: url,
 			method: method,
-			data: data
+			data: data,
+			dataType: "json"
 		})
 		.done(function(response){
 			enlargeTable();
 			enlargeWeekly();
-			enlargePast();
 			scrollToTop();
-	
 			$('.temperature').html(response.currently.temperature);
 			$('.humidity').html(response.currently.humidity);
 			$('.feels_like').html(response.currently.apparentTemperature);
 			$('.summary').html(response.currently.summary);
 			$('.weekly_weather').html('');
 			$('.weekly_weather').append("<section class='glance'>Upcoming Weather</section>");
+
+			tzCorrection(response);
+
 			for (var i=0; i<response.daily.data.length; i++){
 				$('.weekly_weather').append("<section class='daily_weather'></section>");
+				if (i==0)
+				{
+					$('.daily_weather').eq(i).append("<section class='day_of_week'> Today </section>");
+				} else {
+					$('.daily_weather').eq(i).append("<section class='day_of_week'>"+getDay(response, i)+"</section>");
+				}
 				$('.daily_weather').eq(i).append("<section class='daily_hi'> Hi: "+response.daily.data[i].temperatureMax+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_lo'> Lo: "+response.daily.data[i].temperatureMin+"</section>");
 				$('.daily_weather').eq(i).append("<section class='daily_summary'>"+response.daily.data[i].summary+"</section>");
 			};
-
-			drawChart(response);
-
 		});
 	});
 };
 
+// check first day of response for TZ inaccuracy
+var tzCorrection = function (response){
+	var now = new Date();
+	var startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+	var timestamp = startOfDay / 1000;
+	if (response.daily.data[0].time < timestamp) {
+			response.daily.data.splice(0, 1);
+	};
+}
 
+// get day of week from DarkSky Response
+var getDay = function(response, idx){
+
+	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+	var unix = response.daily.data[idx].time;
+	var date = new Date();
+	date.setTime(unix*1000);
+	var numeric = date.getDay();
+	var day = days[numeric];
+
+	return day;
+}
 
 // get coordinates from center of map
 var getLat = function(map){
@@ -144,7 +159,6 @@ var getLng = function(map){
 	var centerCoords = map.getCenter();
 	return centerCoords.lng();
 };
-
 
 // styling
 
@@ -161,45 +175,6 @@ var enlargeWeekly = function(){
 	{ duration: 1000 }
 	);
 }
-
-var enlargePast = function(){
-	$('#past_weather').animate(
-	{ height: '35vh' },
-	{ duration: 1000 }
-	);
-}
-
-// draw chart pulled from past data
-
-var drawChart = function(response){
-	var data = google.visualization.arrayToDataTable([
-		['Last Week', response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMin, response.days_ago_7.temperatureMax, response.days_ago_7.temperatureMax],
-		['', response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMin, response.days_ago_6.temperatureMax, response.days_ago_6.temperatureMax],
-		['', response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMin, response.days_ago_5.temperatureMax, response.days_ago_5.temperatureMax],
-		['', response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMin, response.days_ago_4.temperatureMax, response.days_ago_4.temperatureMax],
-		['', response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMin, response.days_ago_3.temperatureMax, response.days_ago_3.temperatureMax],
-		['', response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMin, response.days_ago_2.temperatureMax, response.days_ago_2.temperatureMax],
-		['Yesterday', response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMin, response.days_ago_1.temperatureMax, response.days_ago_1.temperatureMax]
-		], true);
-
-	var options = { 
-		legend: 'none',
-		colors: ['#1a778c'],
-		fontName: 'helvetica',
-		title: 'Past week daily hi/lo',
-		titleTextStyle: {
-			fontName: 'helvetica',
-			italic: true,
-			fontSize: 18
-		}
-		// bar: {groupWidth: '100%' }
-		 };
-
-	var chart = new google.visualization.CandlestickChart(document.getElementById('past_weather'));
-
-	chart.draw(data, options);
-
-};
 
 var scrollToTop = function(){
 	$('body').animate({ 
